@@ -60,6 +60,12 @@ const dataSchema = mongoose.Schema({
     },
     dataEMGImag : { 
         type : [Number]
+    },
+     dataSPo2 : {
+         type : Number
+    },
+    dataBPM : {
+         type : Number
     }
 }, {timestamps: true})
 

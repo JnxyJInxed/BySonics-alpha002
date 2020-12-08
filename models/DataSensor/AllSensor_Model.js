@@ -39,6 +39,12 @@ const dataSchema = mongoose.Schema({
     //emg
     dataEMG : { 
         type : [Number]
+    },
+    dataSPo2 : {
+         type : Number
+    },
+    dataBPM : {
+         type : Number
     }
 }, {timestamps: true})
 
