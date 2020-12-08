@@ -40,7 +40,7 @@ const dataSchema = mongoose.Schema({
     dataEMG : { 
         type : [Number]
     },
-    dataSPo2 : {
+    dataSPO2 : {
          type : Number
     },
     dataBPM : {

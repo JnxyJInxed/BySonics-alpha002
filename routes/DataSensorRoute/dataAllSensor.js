@@ -74,6 +74,9 @@ const dataAllSensor = require('../../models/DataSensor/AllSensor_Model');
                     dataPPG : req.body.dataPPG, 
                     //emg
                     dataEMG : req.body.dataEMG, 
+                    
+                    dataSPO2 : req.body.dataSPO2,
+                    dataBPM : req.body.dataBPM
         });
         // Save and validate
         newData.save()

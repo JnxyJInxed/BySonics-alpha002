@@ -85,7 +85,9 @@ const dataAllSensor = require('../../models/DataRekonstruksi/AllSensorRekons_Mod
                     //ppg
                     dataPPGImag : req.body.dataPPGImag, 
                     //emg
-                    dataEMGImag : req.body.dataEMGReal
+                    dataEMGImag : req.body.dataEMGReal,
+                    dataSPO2 : req.body.dataSPO2,
+                    dataBPM : req.body.dataBPM
         });
         // Save and validate
         newData.save()
