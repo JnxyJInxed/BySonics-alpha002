@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 //Deklarasi Model
 const User = require('../models/User/User_Model');
+const UserRecordStat = require('../models/User/RecordStatus_Model')
 const {registerValidation, loginValidation} = require('../validation');
 
 router.post('/signup', async (req, res) => {
@@ -41,6 +42,20 @@ router.post('/signup', async (req, res) => {
 
     try{
         await newUser.save()
+        console.log(newUser._id);
+        //bikin User record status
+        try{
+            const NewUserRecordStat = new UserRecordStat({
+                id_pasien : newUser._id,
+                recordStat : false
+            });
+            await NewUserRecordStat.save()
+            console.log(NewUserRecordStat);
+
+        }catch (err){
+            res.status(400).send(err);
+        }
+        //kasih feedback successs
         res.status(200).send(
             {
                 message : "Account by "+ newUser.email + " Created"
