@@ -39,12 +39,12 @@ var record = false;
     });
     //get specific
     //get Last by ID
-    router.get('/recordStat_Specific', async (req,res) => {
+    router.get('/recordStat/:ID', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.body.id_pasien
+                id_pasien: req.query.pasienID
             }
-            console.log(req.body.id_pasien);
+            console.log(req.query.pasienID);
             const UserRecordStat_Last = await UserRecordStat.find(query).limit(1).sort({$natural:-1});
             res.json(UserRecordStat_Last); 
         }catch(err){
@@ -53,13 +53,13 @@ var record = false;
         }
     });
     //START RECORD SPESIFIC
-    router.post('/start_specific', async (req,res) => {
+    router.post('/start/:ID', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.body.id_pasien
+                id_pasien: req.query.pasienID
             }
             const newRecordStat = {
-                id_pasien : req.body.id_pasien,
+                id_pasien : req.query.pasienID,
                 recordStat : true
             }
             await UserRecordStat.updateOne(query, newRecordStat)
@@ -70,13 +70,13 @@ var record = false;
         }
     });
     //START RECORD SPESIFIC
-    router.post('/stop_specific', async (req,res) => {
+    router.post('/stop/:ID', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.body.id_pasien
+                id_pasien: req.query.pasienID
             }
             const newRecordStat = {
-                id_pasien : req.body.id_pasien,
+                id_pasien : req.query.pasienID,
                 recordStat : false
             }
             await UserRecordStat.updateOne(query, newRecordStat)
