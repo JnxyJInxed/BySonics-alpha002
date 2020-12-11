@@ -27,14 +27,14 @@ const dataCamera = require('../../models/DataRekonstruksi/CameraRekons_Model');
     });
 
     //get Last by ID
-    router.get('/Lastest_Specific', async (req,res) => {
+    router.get('/Lastest_Specific/:id', async (req,res) => {
         try{
-            const query = {
-                id_pasien: req.body.id_pasien
-            }
-            console.log(req.body.id_pasien);
-            const dataCamera_Last = await dataCamera.find(query).limit(1).sort({$natural:-1});
-            res.json(dataCamera_Last);   
+            // const query = {
+            //     id_pasien: req.params.id
+            // }
+            console.log(req.params.id);
+            // const dataCamera_Last = await dataCamera.find(query).limit(1).sort({$natural:-1});
+            // res.json(dataCamera_Last);   
         }catch(err){
             console.log(err);
             res.json({message: 'err GET LAST by Camera ID'});

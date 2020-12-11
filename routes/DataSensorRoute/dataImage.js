@@ -25,14 +25,13 @@ const dataCamera = require('../../models/DataSensor/Camera_Model');
             res.json({message: 'err GET LAST by Camera ID'});
         }
     });
-
     //get Last by ID
-    router.get('/Lastest_Specific', async (req,res) => {
+    router.get('/Lastest/:ID', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.body.id_pasien
+                id_pasien: req.query.pasienID
             }
-            console.log(req.body.id_pasien);
+            console.log(req.query.pasienID);
             const dataCamera_Last = await dataCamera.find(query).limit(1).sort({$natural:-1});
             res.json(dataCamera_Last);   
         }catch(err){
