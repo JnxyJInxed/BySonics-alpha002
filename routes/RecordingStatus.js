@@ -4,7 +4,6 @@ const mongoose = require ('mongoose');
 
 const UserRecordStat = require('../models/User/RecordStatus_Model')
 var record = false;
-
 //DATA Accelerometer  
     //get all
     router.post('/start', async (req,res) => {
@@ -39,7 +38,7 @@ var record = false;
         }
     });
     //get specific
-     //get Last by ID
+    //get Last by ID
     router.get('/recordStat_Specific', async (req,res) => {
         try{
             const query = {
@@ -67,10 +66,9 @@ var record = false;
             res.json("Recording User started");
         }catch(err){
             console.log(err);
-            res.json({message: 'err end Record'});
+            res.json({message: 'err start Record'});
         }
     });
-
     //START RECORD SPESIFIC
     router.post('/stop_specific', async (req,res) => {
         try{
