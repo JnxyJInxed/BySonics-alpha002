@@ -81,4 +81,4 @@ const deviceReset = require('./deviceReset');
 
 setInterval(function() { 
 	deviceReset.resetRompiStat() //maggil funsgi ini setiap 
-}, 100000);//this ms
+}, 600000);//this ms
