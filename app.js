@@ -22,37 +22,19 @@ app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 
 //import routes
-const dataPPGRoute = require ('./routes/DataSensorRoute/dataPPG');
-const dataAcceRoute = require ('./routes/DataSensorRoute/dataAccelerometer')
-const dataEKGRoute = require ('./routes/DataSensorRoute/dataEKG')
-const dataEMGRoute = require ('./routes/DataSensorRoute/dataEMG')
-const dataSuhuRoute = require ('./routes/DataSensorRoute/dataSuhu')
 const dataCameraRoute = require ('./routes/DataSensorRoute/dataImage')
 const dataAllRoute = require ('./routes/DataSensorRoute/dataAllSensor')
 //
 //MIDDLEWARE dari URL HOME/post ke postsRoutes
-app.use('/dataPPG', dataPPGRoute);
-app.use('/dataAccelerometer', dataAcceRoute);
-app.use('/dataEKG', dataEKGRoute);
-app.use('/dataEMG', dataEMGRoute);
-app.use('/dataSuhu', dataSuhuRoute);
 app.use('/dataImage', dataCameraRoute);
 app.use('/dataAllSensor', dataAllRoute);
+
 //route rekonstruk
 //import routes
-const rekonstruksiPPGRoute = require ('./routes/RekonstruksiRoute/dataPPG');
-const rekonstruksiAcceRoute = require ('./routes/RekonstruksiRoute/dataAccelerometer')
-const rekonstruksiEKGRoute = require ('./routes/RekonstruksiRoute/dataEKG')
-const rekonstruksiEMGRoute = require ('./routes/RekonstruksiRoute/dataEMG')
-const rekonstruksiSuhuRoute = require ('./routes/RekonstruksiRoute/dataSuhu')
 const rekonstruksiCameraRoute = require ('./routes/RekonstruksiRoute/dataImage')
 const rekonstruksiAllRoute = require ('./routes/RekonstruksiRoute/dataAllSensor')
+
 //MIDDLEWARE dari URL HOME/post ke postsRoutes
-app.use('/rekonstruksiPPG', rekonstruksiPPGRoute);
-app.use('/rekonstruksiAccelerometer', rekonstruksiAcceRoute);
-app.use('/rekonstruksiEKG', rekonstruksiEKGRoute);
-app.use('/rekonstruksiEMG', rekonstruksiEMGRoute);
-app.use('/rekonstruksiSuhu', rekonstruksiSuhuRoute);
 app.use('/rekonstruksiImage', rekonstruksiCameraRoute);
 app.use('/rekonstruksiSensor', rekonstruksiAllRoute);
 
@@ -65,6 +47,12 @@ app.use('/recording', recordingStatus);
 const userRoute = require ('./routes/auth');
 //MIDDLEWARE dari URL HOME/post ke postsRoutes
 app.use('/user', userRoute);
+
+//DEVICE
+const deviceRoute = require ('./routes/SensorDeviceRoute/dataSensorDevice');
+const pairRoute = require ('./routes/SensorDeviceRoute/pairSensorDevice');
+//MIDDLEWARE dari URL HOME/post ke postsRoutes
+app.use('/sensor', deviceRoute, pairRoute);
 
 //ROUTE: neghubungin ke post dan get dkk
 app.get('/', (req,res) => {
@@ -86,3 +74,11 @@ mongoose.connect(
 app.listen(PORT, function () {
 	console.log('Server running');
 });
+
+//reset param
+const deviceReset = require('./deviceReset');
+//deviceReset.resetRompiStat();
+
+setInterval(function() { 
+	deviceReset.resetRompiStat() //maggil funsgi ini setiap 
+}, 100000);//this ms

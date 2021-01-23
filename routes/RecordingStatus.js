@@ -2,85 +2,64 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require ('mongoose');
 
-const UserRecordStat = require('../models/User/RecordStatus_Model')
+const sensorDevice = require('../models/SensorDevice/SensorDevice_Model')
 var record = false;
-//DATA Accelerometer  
-    //get all
-    router.post('/start', async (req,res) => {
-        try{
-            record = true;
-            res.json("Recording started.");
-        }catch(err){
-            console.log(err);
-            res.json({message: 'err start Record'});
-        }
-    });
-
-    router.post('/end', async (req,res) => {
-        try{
-            record = false;
-            res.json("Recording ending");
-        }catch(err){
-            console.log(err);
-            res.json({message: 'err end Record'});
-        }
-    });
-    //get Last
-    router.get('/recordStat', async (req,res) => {
-        try{
-            const recordStat = {
-                recordStat: record
-            }
-            res.json(recordStat); 
-        }catch(err){
-            console.log(err);
-            res.json({message: 'err GET Record Stat'});
-        }
-    });
-    //get specific
-    //get Last by ID
+    //get sensor record status by ID
     router.get('/recordStat/:ID', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.query.pasienID
+                id_rompi: req.query.rompiID
             }
-            console.log(req.query.pasienID);
-            const UserRecordStat_Last = await UserRecordStat.find(query).limit(1).sort({$natural:-1});
-            res.json(UserRecordStat_Last); 
+            console.log(req.query.rompiID);
+            const deviceRompi = await sensorDevice.findOne(query);
+            res.json(deviceRompi.recordStat); 
         }catch(err){
             console.log(err);
-            res.json({message: 'err GET User Record Stat'});
+            res.json({message: 'err GET Sensor Record Stat'});
         }
     });
     //START RECORD SPESIFIC
-    router.post('/start/:ID', async (req,res) => {
+    router.post('/start', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.query.pasienID
+                id_rompi: req.body.id_rompi,
+                id_pasien: req.body.id_pasien,
+                statusRompi: true,
+                isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
-                id_pasien : req.query.pasienID,
                 recordStat : true
             }
-            await UserRecordStat.updateOne(query, newRecordStat)
-            res.json("Recording User started");
+            const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
+            //console.log(deviceRompi);
+            if (deviceRompi.nModified == 1){
+                res.json("Recording started");
+            }else{
+                res.json("Error. Please try to re-pairing");
+            }
         }catch(err){
             console.log(err);
             res.json({message: 'err start Record'});
         }
     });
     //START RECORD SPESIFIC
-    router.post('/stop/:ID', async (req,res) => {
+    router.post('/end', async (req,res) => {
         try{
             const query = {
-                id_pasien: req.query.pasienID
+                id_rompi: req.body.id_rompi,
+                id_pasien: req.body.id_pasien,
+                statusRompi: true,
+                isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
-                id_pasien : req.query.pasienID,
                 recordStat : false
             }
-            await UserRecordStat.updateOne(query, newRecordStat)
-            res.json("Recording User stoped");
+            const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
+            if (deviceRompi.nModified == 1){
+                res.json("Recording stopped");
+            }else{
+                res.json("Err end record");
+            }
         }catch(err){
             console.log(err);
             res.json({message: 'err end Record'});
