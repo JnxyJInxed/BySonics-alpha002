@@ -24,15 +24,15 @@ var record = false;
             const query = {
                 id_rompi: req.body.id_rompi,
                 id_pasien: req.body.id_pasien,
-                //statusRompi: true,
-                //isPaired : true //tetep kaish biar gak ketuker
+                statusRompi: true,
+                isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
                 recordStat : true
             }
             const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
             //console.log(deviceRompi);
-            if (deviceRompi.nModified == 1){
+            if (deviceRompi.n == 1){
                res.status(200).send(
                 {
                     message : "Recording User "+ id_pasien+ " Started"
@@ -54,14 +54,14 @@ var record = false;
             const query = {
                 id_rompi: req.body.id_rompi,
                 id_pasien: req.body.id_pasien,
-                //statusRompi: true,
-                //isPaired : true //tetep kaish biar gak ketuker
+                statusRompi: true,
+                isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
                 recordStat : false
             }
             const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
-            if (deviceRompi.nModified == 1){
+            if (deviceRompi.n == 1){
                 res.status(200).send(
                 {
                     message : "Recording User "+ id_pasien+ " Stopped"
