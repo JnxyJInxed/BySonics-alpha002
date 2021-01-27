@@ -24,8 +24,8 @@ var record = false;
             const query = {
                 id_rompi: req.body.id_rompi,
                 id_pasien: req.body.id_pasien,
-                statusRompi: true,
-                isPaired : true //tetep kaish biar gak ketuker
+                //statusRompi: true,
+                //isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
                 recordStat : true
@@ -54,8 +54,8 @@ var record = false;
             const query = {
                 id_rompi: req.body.id_rompi,
                 id_pasien: req.body.id_pasien,
-                statusRompi: true,
-                isPaired : true //tetep kaish biar gak ketuker
+                //statusRompi: true,
+                //isPaired : true //tetep kaish biar gak ketuker
             }
             const newRecordStat = {
                 recordStat : false
