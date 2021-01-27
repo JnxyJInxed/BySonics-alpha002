@@ -33,9 +33,15 @@ var record = false;
             const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
             //console.log(deviceRompi);
             if (deviceRompi.nModified == 1){
-                res.json("Recording started");
+               res.status(200).send(
+                {
+                    message : "Recording User "+ id_pasien+ " Started"
+                });
             }else{
-                res.json("Error. Please try to re-pairing");
+                res.status(400).send(
+                {
+                    message : "Error. Please try to re-pairing"
+                });
             }
         }catch(err){
             console.log(err);
@@ -56,9 +62,15 @@ var record = false;
             }
             const deviceRompi = await sensorDevice.updateOne(query, newRecordStat)
             if (deviceRompi.nModified == 1){
-                res.json("Recording stopped");
+                res.status(200).send(
+                {
+                    message : "Recording User "+ id_pasien+ " Stopped"
+                });
             }else{
-                res.json("Err end record");
+                res.status(400).send(
+                {
+                    message : "Error end record"
+                });
             }
         }catch(err){
             console.log(err);
