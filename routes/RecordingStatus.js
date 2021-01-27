@@ -35,7 +35,7 @@ var record = false;
             if (deviceRompi.n == 1){
                res.status(200).send(
                 {
-                    message : "Recording User "+ id_pasien+ " Started"
+                    message : "Recording User "+  req.body.id_pasien + " Started"
                 });
             }else{
                 res.status(400).send(
@@ -64,7 +64,7 @@ var record = false;
             if (deviceRompi.n == 1){
                 res.status(200).send(
                 {
-                    message : "Recording User "+ id_pasien+ " Stopped"
+                    message : "Recording User "+ req.body.id_pasien+ " Stopped"
                 });
             }else{
                 res.status(400).send(
