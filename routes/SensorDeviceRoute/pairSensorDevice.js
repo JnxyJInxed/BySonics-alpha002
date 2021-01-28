@@ -95,9 +95,10 @@ router.get('/disconnect/:ID', async (req,res) => {
     try{
         const query= {
             id_rompi: req.query.rompiID,
+            id_pasien: req.query.pasienID,
             recordStat : false
         }
-        //console.log()
+        console.log(query)
         const resetRompiStat = {
             id_pasien : null,
             statusRompi : false,
