@@ -109,9 +109,13 @@ router.get('/disconnect/:ID', async (req,res) => {
         const devicesRompi = await sensorDevice.updateOne(query, resetRompiStat, options)
         //console.log(devicesRompi.n)
         if (devicesRompi.n == 1){
-            res.status(200).send("Disconnected with Rompi ID: " +  req.query.rompiID);
+            res.status(200).send({
+                message : "Disconnected with Rompi ID: " +  req.query.rompiID
+            });
         }else{
-            res.status(400).send("Can't disconnect with device. Please try to stop recording first");
+            res.status(400).send({
+                message : "Can't disconnect with device. Please try to stop recording first"
+            });
         }
     }catch(err){
         console.log(err);

@@ -12,7 +12,9 @@ var record = false;
             }
             console.log(req.query.rompiID);
             const deviceRompi = await sensorDevice.findOne(query);
-            res.json(deviceRompi.recordStat); 
+            res.json({
+                message : deviceRompi.recordStat
+            }); 
         }catch(err){
             console.log(err);
             res.json({message: 'err GET Sensor Record Stat'});
